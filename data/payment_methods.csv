@@ -1,0 +1,14 @@
+code,name,acquiring_percent,installment_percent,sort,is_active
+cash,Наличка,0,0,1,1
+card_kapital,Банковская карта (капитал),1.5,0,2,1
+card_non_kapital,Банковская карта (НЕ капитал),2,0,3,1
+birkart_3,Таксит Birkart 3 месяца,0,1.5,4,1
+birkart_6,Таксит Birkart 6 месяца,1.5,2,5,1
+birkart_9,Таксит Birkart 9 месяца,1.5,2.5,6,1
+birkart_12,Таксит Birkart 12 месяца,1.5,3,7,1
+birkart_18,Таксит Birkart 18 месяца,1.5,4.1,8,1
+birkart_24,Таксит Birkart 24 месяца,1.5,5.5,9,1
+apay_gpay_kb,Apay/GPay - карта КБ,1.9,0,10,1
+apay_gpay_az_other,Apay/GPay - др аз карты,2.9,0,11,1
+apay_gpay_foreign,Apay/GPay - иностранные,3.4,0,12,1
+internal_credit_all,Внутренний кредит,0,0,13,1
