@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birmarket Business — Настройки</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand__logo">◆</div>
+        <div class="brand__text">
+          <div class="brand__title">Business</div>
+          <div class="brand__sub">By Birmarket</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">▦</span>
+          <span>Заказы</span>
+        </a>
+
+        <details class="nav__group" open>
+          <summary class="nav__item nav__item--summary">
+            <span class="nav__icon">◻</span>
+            <span>Товары</span>
+            <span class="nav__chev">▾</span>
+          </summary>
+          <div class="nav__sub">
+            <a class="nav__subitem" href="index.html">Управление товарами</a>
+            <a class="nav__subitem" href="index.html">Обновление товаров</a>
+            <a class="nav__subitem" href="index.html">История обновлений</a>
+          </div>
+        </details>
+
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">◎</span>
+          <span>Аналитика</span>
+        </a>
+
+        <a class="nav__item nav__item--active" href="settings.html">
+          <span class="nav__icon">⚙</span>
+          <span>Настройки</span>
+        </a>
+
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">❓</span>
+          <span>База знаний</span>
+        </a>
+
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">🔔</span>
+          <span>Оповещения</span>
+        </a>
+
+        <div class="nav__divider"></div>
+        <a class="nav__item" href="tools.html">
+          <span class="nav__icon">🧩</span>
+          <span>Инструменты</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <section class="main">
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <button class="iconbtn" aria-label="Menu">☰</button>
+        </div>
+
+        <div class="topbar__right">
+          <button class="iconbtn" aria-label="Help">☎</button>
+          <button class="iconbtn" aria-label="Notifications">🔔</button>
+          <div class="langpill">RU ▾</div>
+          <button class="btn btn--ghost">Выйти</button>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div class="content">
+        <div class="pagehead">
+          <div>
+            <h1 class="h1">Настройки магазина</h1>
+            <div class="muted">Управление сотрудниками и параметрами магазина</div>
+          </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+          <button id="tab-staff" class="tab tab--active" type="button">👥 Сотрудники</button>
+          <button id="tab-store" class="tab" type="button">🏪 Магазин</button>
+        </div>
+
+        <!-- ===== TAB 1: STAFF MANAGEMENT ===== -->
+        <section id="panel-staff" class="card">
+          <div class="card__head">
+            <div>
+              <div class="card__title">Управление сотрудниками</div>
+              <div class="card__sub">
+                Добавь сотрудников в свой магазин и управляй их доступом
+              </div>
+            </div>
+            <button id="staff_add_btn" class="btn btn--primary">+ Добавить сотрудника</button>
+          </div>
+
+          <div id="staff_err" class="error" role="alert"></div>
+
+          <!-- Staff List -->
+          <div id="staff_list" style="margin-top: 14px;">
+            <div class="staff-table" style="overflow:auto; border:1px solid var(--border); border-radius:12px;">
+              <table style="width:100%; border-collapse:collapse; min-width:600px;">
+                <thead>
+                  <tr style="background:#fafbff;">
+                    <th style="text-align:left; padding:10px 12px; font-size:12px; color:var(--muted); border-bottom:1px solid var(--border);">Имя и фамилия</th>
+                    <th style="text-align:left; padding:10px 12px; font-size:12px; color:var(--muted); border-bottom:1px solid var(--border);">Email</th>
+                    <th style="text-align:left; padding:10px 12px; font-size:12px; color:var(--muted); border-bottom:1px solid var(--border);">Должность</th>
+                    <th style="text-align:left; padding:10px 12px; font-size:12px; color:var(--muted); border-bottom:1px solid var(--border);">Статус</th>
+                    <th style="text-align:center; padding:10px 12px; font-size:12px; color:var(--muted); border-bottom:1px solid var(--border);">Действия</th>
+                  </tr>
+                </thead>
+                <tbody id="staff_tbody">
+                  <!-- Заполнится javascript -->
+                </tbody>
+              </table>
+            </div>
+
+            <div id="staff_empty" style="text-align:center; padding:40px 20px; color:var(--muted);">
+              <div style="font-size:14px;">Сотрудники не добавлены</div>
+              <div style="font-size:12px; margin-top:8px;">Нажми кнопку "Добавить сотрудника" чтобы начать</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== TAB 2: STORE SETTINGS ===== -->
+        <section id="panel-store" class="card" style="display:none;">
+          <div class="card__head">
+            <div>
+              <div class="card__title">Параметры магазина</div>
+              <div class="card__sub">
+                Основная информация и настройки
+              </div>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <label class="field">
+              <span>Название магазина</span>
+              <input id="store_name" type="text" placeholder="Например: My Shop" value="Мой магазин" />
+            </label>
+
+            <label class="field">
+              <span>Email магазина</span>
+              <input id="store_email" type="email" placeholder="shop@example.com" />
+            </label>
+
+            <label class="field">
+              <span>Телефон</span>
+              <input id="store_phone" type="tel" placeholder="+994 50 123-45-67" />
+            </label>
+
+            <label class="field">
+              <span>Город</span>
+              <input id="store_city" type="text" placeholder="Баку" />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="store_save" class="btn btn--primary">Сохранить изменения</button>
+            <div id="store_msg" class="error" role="alert"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== MODAL: Add/Edit Staff ===== -->
+  <div id="staff_modal" class="modal" style="display:none;">
+    <div class="modal__overlay"></div>
+    <div class="modal__content">
+      <div class="modal__header">
+        <div class="modal__title" id="modal_title">Добавить сотрудника</div>
+        <button id="modal_close" class="modal__close" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal__body">
+        <label class="field">
+          <span>Имя и фамилия *</span>
+          <input id="modal_name" type="text" placeholder="Иван Иванов" />
+        </label>
+
+        <label class="field">
+          <span>Email *</span>
+          <input id="modal_email" type="email" placeholder="ivan@example.com" />
+        </label>
+
+        <label class="field">
+          <span>Должность *</span>
+          <select id="modal_position">
+            <option value="">Выберите должность</option>
+            <option value="Менеджер">Менеджер</option>
+            <option value="Кассир">Кассир</option>
+            <option value="Упаковщик">Упаковщик</option>
+            <option value="Логист">Логист</option>
+            <option value="Контролер качества">Контролер качества</option>
+            <option value="Администратор">Администратор</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Статус</span>
+          <select id="modal_status">
+            <option value="active">Активный</option>
+            <option value="inactive">Неактивный</option>
+          </select>
+        </label>
+
+        <div id="modal_err" class="error" role="alert"></div>
+      </div>
+
+      <div class="modal__footer">
+        <button id="modal_cancel" class="btn btn--ghost">Отменить</button>
+        <button id="modal_submit" class="btn btn--primary">Добавить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>
