@@ -3,61 +3,155 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Калькулятор комиссий</title>
+  <title>Birmarket Business — Кабинет продавца</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="card">
-    <header class="header">
-      <h1>Калькулятор комиссий</h1>
-      <p class="subtitle">Расчет комиссии и дохода продавца для 1 товара</p>
-    </header>
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand__logo">◆</div>
+        <div class="brand__text">
+          <div class="brand__title">Business</div>
+          <div class="brand__sub">By Birmarket</div>
+        </div>
+      </div>
 
-    <section class="form">
-      <label class="field">
-        <span>Категория</span>
-        <select id="category">
-          <option value="">Выберите категорию</option>
-        </select>
-      </label>
+      <nav class="nav">
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">▦</span>
+          <span>Заказы</span>
+        </a>
 
-      <label class="field">
-        <span>Подкатегория</span>
-        <select id="subcategory" disabled>
-          <option value="">Выберите подкатегорию</option>
-        </select>
-      </label>
+        <details class="nav__group" open>
+          <summary class="nav__item nav__item--summary">
+            <span class="nav__icon">◻</span>
+            <span>Товары</span>
+            <span class="nav__chev">▾</span>
+          </summary>
+          <div class="nav__sub">
+            <a class="nav__subitem" href="index.html">Управление товарами</a>
+            <a class="nav__subitem" href="index.html">Обновление товаров</a>
+            <a class="nav__subitem" href="index.html">История обновлений</a>
+          </div>
+        </details>
 
-      <label class="field">
-        <span>Стоимость товара (AZN)</span>
-        <input id="price" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Например: 49.99" />
-      </label>
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">◎</span>
+          <span>Аналитика</span>
+        </a>
 
-      <label class="field">
-        <span>Способ оплаты</span>
-        <select id="payment">
-          <option value="">Выберите способ оплаты</option>
-        </select>
-      </label>
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">⚙</span>
+          <span>Настройки</span>
+        </a>
 
-      <button id="calc" class="btn" disabled>Рассчитать</button>
-      <div id="err" class="error"></div>
-    </section>
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">❓</span>
+          <span>База знаний</span>
+        </a>
 
-    <section class="result" id="result" hidden>
-      <h2>Результат</h2>
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">🔔</span>
+          <span>Оповещения</span>
+        </a>
 
-      <div class="grid">
-        <div class="row"><span>Базовая комиссия</span><b id="r_base">—</b></div>
-        <div class="row"><span>Эквайринг</span><b id="r_acq">—</b></div>
-        <div class="row"><span>Рассрочка</span><b id="r_inst">—</b></div>
-        <div class="row total"><span>Итоговая комиссия</span><b id="r_total">—</b></div>
-        <div class="row"><span>Сумма комиссии</span><b id="r_fee_amt">—</b></div>
-        <div class="row income"><span>Доход партнера</span><b id="r_income">—</b></div>
+        <!-- ✅ NEW SECTION -->
+        <div class="nav__divider"></div>
+
+        <!-- Если ты на главной - можно не подсвечивать. Подсветка будет на tools.html -->
+        <a class="nav__item" href="tools.html">
+          <span class="nav__icon">🧩</span>
+          <span>Инструменты</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <section class="main">
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <button class="iconbtn" aria-label="Menu">☰</button>
+        </div>
+
+        <div class="topbar__right">
+          <button class="iconbtn" aria-label="Help">☎</button>
+          <button class="iconbtn" aria-label="Notifications">🔔</button>
+          <div class="langpill">RU ▾</div>
+          <button class="btn btn--ghost">Выйти</button>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div class="content">
+        <div class="pagehead">
+          <div>
+            <h1 class="h1">Мои товары</h1>
+            <div class="muted">Страница-заглушка. Калькулятор находится в разделе “Инструменты”.</div>
+          </div>
+        </div>
+
+        <!-- Заглушка блока уведомления как в дизайне -->
+        <section class="card" style="border-color:#f3c7cf; background:#fff5f7;">
+          <div class="card__title" style="color:#e11d48;">Временная блокировка</div>
+          <div class="card__sub" style="color:#6b7280;">
+            Ваши товары отключены и не отображаются покупателям из-за нарушений сроков обработки заказов или непередачи заказов в логистику.
+            Для решения вопроса необходимо обратиться в поддержку.
+          </div>
+        </section>
+
+        <!-- Кнопка перехода к калькулятору -->
+        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn btn--primary" href="tools.html" style="display:inline-flex; align-items:center;">
+            Перейти в инструменты
+          </a>
+          <a class="btn btn--ghost" href="tools.html" style="display:inline-flex; align-items:center;">
+            Калькулятор комиссий
+          </a>
+        </div>
+
+        <!-- Таблица-заглушка под стиль кабинета -->
+        <section class="card" style="margin-top:12px;">
+          <div class="card__title">Список товаров (заглушка)</div>
+          <div class="card__sub">Здесь может быть таблица как в кабинете. Сейчас важно меню и раздел “Инструменты”.</div>
+
+          <div style="margin-top:12px; overflow:auto; border:1px solid var(--border); border-radius:12px;">
+            <table style="width:100%; border-collapse:collapse; min-width:720px;">
+              <thead>
+                <tr style="background:#fafbff;">
+                  <th style="text-align:left; padding:10px 12px; font-size:12px; color:var(--muted); border-bottom:1px solid var(--border);">Артикул</th>
+                  <th style="text-align:left; padding:10px 12px; font-size:12px; color:var(--muted); border-bottom:1px solid var(--border);">Название товара</th>
+                  <th style="text-align:left; padding:10px 12px; font-size:12px; color:var(--muted); border-bottom:1px solid var(--border);">Цена</th>
+                  <th style="text-align:left; padding:10px 12px; font-size:12px; color:var(--muted); border-bottom:1px solid var(--border);">Кол-во</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:12px; border-bottom:1px solid var(--border); font-size:13px;">01021_1518168</td>
+                  <td style="padding:12px; border-bottom:1px solid var(--border); font-size:13px;">Пример товара 1</td>
+                  <td style="padding:12px; border-bottom:1px solid var(--border); font-size:13px;">123.80 ₼</td>
+                  <td style="padding:12px; border-bottom:1px solid var(--border); font-size:13px;">1</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px; border-bottom:1px solid var(--border); font-size:13px;">01021_1518169</td>
+                  <td style="padding:12px; border-bottom:1px solid var(--border); font-size:13px;">Пример товара 2</td>
+                  <td style="padding:12px; border-bottom:1px solid var(--border); font-size:13px;">849.90 ₼</td>
+                  <td style="padding:12px; border-bottom:1px solid var(--border); font-size:13px;">2</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px; font-size:13px;">01021_1518170</td>
+                  <td style="padding:12px; font-size:13px;">Пример товара 3</td>
+                  <td style="padding:12px; font-size:13px;">1680.31 ₼</td>
+                  <td style="padding:12px; font-size:13px;">1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
     </section>
-  </main>
-
-  <script src="app.js"></script>
+  </div>
 </body>
 </html>

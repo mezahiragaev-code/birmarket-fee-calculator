@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birmarket Business — Инструменты</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand__logo">◆</div>
+        <div class="brand__text">
+          <div class="brand__title">Business</div>
+          <div class="brand__sub">By Birmarket</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">▦</span>
+          <span>Заказы</span>
+        </a>
+
+        <details class="nav__group" open>
+          <summary class="nav__item nav__item--summary">
+            <span class="nav__icon">◻</span>
+            <span>Товары</span>
+            <span class="nav__chev">▾</span>
+          </summary>
+          <div class="nav__sub">
+            <a class="nav__subitem" href="index.html">Управление товарами</a>
+            <a class="nav__subitem" href="index.html">Обновление товаров</a>
+            <a class="nav__subitem" href="index.html">История обновлений</a>
+          </div>
+        </details>
+
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">◎</span>
+          <span>Аналитика</span>
+        </a>
+
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">⚙</span>
+          <span>Настройки</span>
+        </a>
+
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">❓</span>
+          <span>База знаний</span>
+        </a>
+
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">🔔</span>
+          <span>Оповещения</span>
+        </a>
+
+        <!-- ✅ NEW SECTION -->
+        <div class="nav__divider"></div>
+        <a class="nav__item nav__item--active" href="tools.html">
+          <span class="nav__icon">🧩</span>
+          <span>Инструменты</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <section class="main">
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <button class="iconbtn" aria-label="Menu">☰</button>
+        </div>
+
+        <div class="topbar__right">
+          <button class="iconbtn" aria-label="Help">☎</button>
+          <button class="iconbtn" aria-label="Notifications">🔔</button>
+          <div class="langpill">RU ▾</div>
+          <button class="btn btn--ghost">Выйти</button>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div class="content">
+        <div class="pagehead">
+          <div>
+            <h1 class="h1">Инструменты</h1>
+            <div class="muted">Калькуляторы и полезные утилиты для продавца</div>
+          </div>
+        </div>
+
+        <!-- TOOL TABS (как в кабинете: легкие пилюли) -->
+        <div class="tabs">
+          <button class="tab tab--active" type="button">Калькулятор комиссий</button>
+          <button class="tab" type="button" disabled>Скоро</button>
+        </div>
+
+        <!-- CALCULATOR CARD -->
+        <section class="card">
+          <div class="card__head">
+            <div>
+              <div class="card__title">Калькулятор комиссий</div>
+              <div class="card__sub">
+                Рассчет комиссии и дохода продавца для одного товара (без логистики, штрафов и возвратов)
+              </div>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <label class="field">
+              <span>Категория</span>
+              <select id="category">
+                <option value="">Выберите категорию</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Подкатегория</span>
+              <select id="subcategory" disabled>
+                <option value="">Выберите подкатегорию</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Стоимость товара (AZN)</span>
+              <input id="price" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Например: 49.99" />
+            </label>
+
+            <label class="field">
+              <span>Способ оплаты</span>
+              <select id="payment">
+                <option value="">Выберите способ оплаты</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="calc" class="btn btn--primary" disabled>Рассчитать</button>
+            <button id="reset" class="btn btn--ghost" type="button">Сбросить</button>
+            <div id="err" class="error" role="alert"></div>
+          </div>
+
+          <div id="result" class="result" hidden>
+            <div class="result__grid">
+              <div class="metric">
+                <div class="metric__label">Базовая комиссия</div>
+                <div class="metric__value" id="r_base">—</div>
+              </div>
+
+              <div class="metric">
+                <div class="metric__label">Эквайринг</div>
+                <div class="metric__value" id="r_acq">—</div>
+              </div>
+
+              <div class="metric">
+                <div class="metric__label">Рассрочка</div>
+                <div class="metric__value" id="r_inst">—</div>
+              </div>
+
+              <div class="metric metric--accent">
+                <div class="metric__label">Итоговая комиссия</div>
+                <div class="metric__value" id="r_total">—</div>
+              </div>
+
+              <div class="metric">
+                <div class="metric__label">Сумма комиссии</div>
+                <div class="metric__value" id="r_fee_amt">—</div>
+              </div>
+
+              <div class="metric metric--income">
+                <div class="metric__label">Доход партнера</div>
+                <div class="metric__value" id="r_income">—</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
