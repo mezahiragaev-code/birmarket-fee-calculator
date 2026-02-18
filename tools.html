@@ -57,7 +57,6 @@
           <span>Оповещения</span>
         </a>
 
-        <!-- ✅ NEW SECTION -->
         <div class="nav__divider"></div>
         <a class="nav__item nav__item--active" href="tools.html">
           <span class="nav__icon">🧩</span>
@@ -87,23 +86,23 @@
         <div class="pagehead">
           <div>
             <h1 class="h1">Инструменты</h1>
-            <div class="muted">Калькуляторы и полезные утилиты для продавца</div>
+            <div class="muted">Калькуляторы и утилиты для продавца</div>
           </div>
         </div>
 
-        <!-- TOOL TABS (как в кабинете: легкие пилюли) -->
+        <!-- TABS -->
         <div class="tabs">
-          <button class="tab tab--active" type="button">Калькулятор комиссий</button>
-          <button class="tab" type="button" disabled>Скоро</button>
+          <button id="tab-fee" class="tab tab--active" type="button">Калькулятор комиссий</button>
+          <button id="tab-bep" class="tab" type="button">Безубыточная цена</button>
         </div>
 
-        <!-- CALCULATOR CARD -->
-        <section class="card">
+        <!-- ===== TAB 1: FEE CALC ===== -->
+        <section id="panel-fee" class="card">
           <div class="card__head">
             <div>
               <div class="card__title">Калькулятор комиссий</div>
               <div class="card__sub">
-                Рассчет комиссии и дохода продавца для одного товара (без логистики, штрафов и возвратов)
+                Рассчет комиссий и дохода продавца для одного товара (без логистики, штрафов и возвратов)
               </div>
             </div>
           </div>
@@ -111,71 +110,146 @@
           <div class="grid2">
             <label class="field">
               <span>Категория</span>
-              <select id="category">
+              <select id="fee_category">
                 <option value="">Выберите категорию</option>
               </select>
             </label>
 
             <label class="field">
               <span>Подкатегория</span>
-              <select id="subcategory" disabled>
+              <select id="fee_subcategory" disabled>
                 <option value="">Выберите подкатегорию</option>
               </select>
             </label>
 
             <label class="field">
               <span>Стоимость товара (AZN)</span>
-              <input id="price" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Например: 49.99" />
+              <input id="fee_price" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Например: 49.99" />
             </label>
 
             <label class="field">
               <span>Способ оплаты</span>
-              <select id="payment">
+              <select id="fee_payment">
                 <option value="">Выберите способ оплаты</option>
               </select>
             </label>
           </div>
 
           <div class="actions">
-            <button id="calc" class="btn btn--primary" disabled>Рассчитать</button>
-            <button id="reset" class="btn btn--ghost" type="button">Сбросить</button>
-            <div id="err" class="error" role="alert"></div>
+            <button id="fee_calc" class="btn btn--primary" disabled>Рассчитать</button>
+            <button id="fee_reset" class="btn btn--ghost" type="button">Сбросить</button>
+            <div id="fee_err" class="error" role="alert"></div>
           </div>
 
-          <div id="result" class="result" hidden>
+          <div id="fee_result" class="result" hidden>
             <div class="result__grid">
               <div class="metric">
                 <div class="metric__label">Базовая комиссия</div>
-                <div class="metric__value" id="r_base">—</div>
+                <div class="metric__value" id="fee_r_base">—</div>
               </div>
-
               <div class="metric">
                 <div class="metric__label">Эквайринг</div>
-                <div class="metric__value" id="r_acq">—</div>
+                <div class="metric__value" id="fee_r_acq">—</div>
               </div>
-
               <div class="metric">
                 <div class="metric__label">Рассрочка</div>
-                <div class="metric__value" id="r_inst">—</div>
+                <div class="metric__value" id="fee_r_inst">—</div>
               </div>
-
               <div class="metric metric--accent">
                 <div class="metric__label">Итоговая комиссия</div>
-                <div class="metric__value" id="r_total">—</div>
+                <div class="metric__value" id="fee_r_total">—</div>
               </div>
-
               <div class="metric">
                 <div class="metric__label">Сумма комиссии</div>
-                <div class="metric__value" id="r_fee_amt">—</div>
+                <div class="metric__value" id="fee_r_fee_amt">—</div>
               </div>
-
               <div class="metric metric--income">
                 <div class="metric__label">Доход партнера</div>
-                <div class="metric__value" id="r_income">—</div>
+                <div class="metric__value" id="fee_r_income">—</div>
               </div>
             </div>
           </div>
         </section>
+
+        <!-- ===== TAB 2: BREAK-EVEN PRICE ===== -->
+        <section id="panel-bep" class="card" style="display:none;">
+          <div class="card__head">
+            <div>
+              <div class="card__title">Безубыточная цена</div>
+              <div class="card__sub">
+                Минимальная цена продажи, при которой прибыль = 0, с учетом комиссий Birmarket (тейкрейт + эквайринг + рассрочка)
+              </div>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <label class="field">
+              <span>Категория</span>
+              <select id="bep_category">
+                <option value="">Выберите категорию</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Подкатегория</span>
+              <select id="bep_subcategory" disabled>
+                <option value="">Выберите подкатегорию</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Способ оплаты</span>
+              <select id="bep_payment">
+                <option value="">Выберите способ оплаты</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Себестоимость (AZN) <span style="color:var(--muted); font-weight:400;">(закупка + упаковка + прочие расходы)</span></span>
+              <input id="bep_cogs" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Например: 30.00" />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="bep_calc" class="btn btn--primary" disabled>Рассчитать</button>
+            <button id="bep_reset" class="btn btn--ghost" type="button">Сбросить</button>
+            <div id="bep_err" class="error" role="alert"></div>
+          </div>
+
+          <div id="bep_result" class="result" hidden>
+            <div class="result__grid">
+              <div class="metric">
+                <div class="metric__label">Базовая комиссия</div>
+                <div class="metric__value" id="bep_r_base">—</div>
+              </div>
+              <div class="metric">
+                <div class="metric__label">Эквайринг</div>
+                <div class="metric__value" id="bep_r_acq">—</div>
+              </div>
+              <div class="metric">
+                <div class="metric__label">Рассрочка</div>
+                <div class="metric__value" id="bep_r_inst">—</div>
+              </div>
+              <div class="metric metric--accent">
+                <div class="metric__label">Итоговая комиссия</div>
+                <div class="metric__value" id="bep_r_total">—</div>
+              </div>
+              <div class="metric">
+                <div class="metric__label">Цена безубыточности</div>
+                <div class="metric__value" id="bep_r_price">—</div>
+              </div>
+              <div class="metric metric--income">
+                <div class="metric__label">Проверка (прибыль)</div>
+                <div class="metric__value" id="bep_r_profit">—</div>
+              </div>
+            </div>
+
+            <div class="muted" style="margin-top:10px;">
+              Формула: <b>P = COGS / (1 − комиссия%/100)</b>. Округление до 2 знаков.
+            </div>
+          </div>
+        </section>
+
       </div>
     </section>
   </div>
