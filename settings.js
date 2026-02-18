@@ -38,6 +38,8 @@ function initTabs() {
   const panelStaff = document.getElementById("panel-staff");
   const panelStore = document.getElementById("panel-store");
 
+  if (!tabStaff || !tabStore || !panelStaff || !panelStore) return;
+
   function setActive(which) {
     const staffOn = which === "staff";
     tabStaff.classList.toggle("tab--active", staffOn);
@@ -58,6 +60,8 @@ function renderStaffList() {
   const tbody = document.getElementById("staff_tbody");
   const empty = document.getElementById("staff_empty");
   const list = document.getElementById("staff_list");
+
+  if (!tbody || !empty || !list) return;
 
   tbody.innerHTML = "";
 
@@ -107,14 +111,26 @@ function renderStaffList() {
 
 function openAddModal() {
   editingID = null;
-  document.getElementById("modal_title").textContent = "Добавить сотрудника";
-  document.getElementById("modal_name").value = "";
-  document.getElementById("modal_email").value = "";
-  document.getElementById("modal_position").value = "";
-  document.getElementById("modal_status").value = "active";
-  document.getElementById("modal_err").textContent = "";
-  document.getElementById("modal_submit").textContent = "Добавить";
-  document.getElementById("staff_modal").style.display = "flex";
+  const modal = document.getElementById("staff_modal");
+  if (!modal) return;
+  
+  const title = document.getElementById("modal_title");
+  const name = document.getElementById("modal_name");
+  const email = document.getElementById("modal_email");
+  const position = document.getElementById("modal_position");
+  const status = document.getElementById("modal_status");
+  const err = document.getElementById("modal_err");
+  const submit = document.getElementById("modal_submit");
+
+  if (title) title.textContent = "Добавить сотрудника";
+  if (name) name.value = "";
+  if (email) email.value = "";
+  if (position) position.value = "";
+  if (status) status.value = "active";
+  if (err) err.textContent = "";
+  if (submit) submit.textContent = "Добавить";
+  
+  modal.style.display = "flex";
 }
 
 function openEditModal(id) {
@@ -122,45 +138,63 @@ function openEditModal(id) {
   if (!staff) return;
 
   editingID = id;
-  document.getElementById("modal_title").textContent = "Изменить сотрудника";
-  document.getElementById("modal_name").value = staff.name;
-  document.getElementById("modal_email").value = staff.email;
-  document.getElementById("modal_position").value = staff.position;
-  document.getElementById("modal_status").value = staff.status;
-  document.getElementById("modal_err").textContent = "";
-  document.getElementById("modal_submit").textContent = "Сохранить";
-  document.getElementById("staff_modal").style.display = "flex";
+  const modal = document.getElementById("staff_modal");
+  if (!modal) return;
+
+  const title = document.getElementById("modal_title");
+  const name = document.getElementById("modal_name");
+  const email = document.getElementById("modal_email");
+  const position = document.getElementById("modal_position");
+  const status = document.getElementById("modal_status");
+  const err = document.getElementById("modal_err");
+  const submit = document.getElementById("modal_submit");
+
+  if (title) title.textContent = "Изменить сотрудника";
+  if (name) name.value = staff.name;
+  if (email) email.value = staff.email;
+  if (position) position.value = staff.position;
+  if (status) status.value = staff.status;
+  if (err) err.textContent = "";
+  if (submit) submit.textContent = "Сохранить";
+  
+  modal.style.display = "flex";
 }
 
 function closeModal() {
-  document.getElementById("staff_modal").style.display = "none";
+  const modal = document.getElementById("staff_modal");
+  if (modal) modal.style.display = "none";
   editingID = null;
 }
 
 function validateStaffForm() {
-  const name = document.getElementById("modal_name").value.trim();
-  const email = document.getElementById("modal_email").value.trim();
-  const position = document.getElementById("modal_position").value;
-
+  const name = document.getElementById("modal_name");
+  const email = document.getElementById("modal_email");
+  const position = document.getElementById("modal_position");
   const err = document.getElementById("modal_err");
 
-  if (!name) {
+  if (!err) return false;
+
+  const nameVal = name ? name.value.trim() : "";
+  const emailVal = email ? email.value.trim() : "";
+  const posVal = position ? position.value : "";
+
+  if (!nameVal) {
     err.textContent = "Укажи имя и фамилию.";
     return false;
   }
 
-  if (!email || !email.includes("@")) {
+  if (!emailVal || !emailVal.includes("@")) {
     err.textContent = "Укажи корректный email.";
     return false;
   }
 
-  if (!position) {
+  if (!posVal) {
     err.textContent = "Выбери должность.";
     return false;
   }
 
   // Check email uniqueness (if adding new)
-  if (!editingID && staffList.some(s => s.email === email)) {
+  if (!editingID && staffList.some(s => s.email === emailVal)) {
     err.textContent = "Этот email уже используется.";
     return false;
   }
@@ -172,25 +206,30 @@ function validateStaffForm() {
 function addOrUpdateStaff() {
   if (!validateStaffForm()) return;
 
-  const name = document.getElementById("modal_name").value.trim();
-  const email = document.getElementById("modal_email").value.trim();
-  const position = document.getElementById("modal_position").value;
-  const status = document.getElementById("modal_status").value;
+  const name = document.getElementById("modal_name");
+  const email = document.getElementById("modal_email");
+  const position = document.getElementById("modal_position");
+  const status = document.getElementById("modal_status");
+
+  const nameVal = name ? name.value.trim() : "";
+  const emailVal = email ? email.value.trim() : "";
+  const posVal = position ? position.value : "";
+  const statVal = status ? status.value : "active";
 
   if (editingID) {
     // Update
     const idx = staffList.findIndex(s => s.id === editingID);
     if (idx !== -1) {
-      staffList[idx] = { ...staffList[idx], name, email, position, status };
+      staffList[idx] = { ...staffList[idx], name: nameVal, email: emailVal, position: posVal, status: statVal };
     }
   } else {
     // Add new
     staffList.push({
       id: generateID(),
-      name,
-      email,
-      position,
-      status,
+      name: nameVal,
+      email: emailVal,
+      position: posVal,
+      status: statVal,
       createdAt: new Date().toISOString(),
     });
   }
@@ -201,12 +240,14 @@ function addOrUpdateStaff() {
 
   // Show success message
   const errEl = document.getElementById("staff_err");
-  errEl.textContent = editingID ? "Сотрудник обновлён ✓" : "Сотрудник добавлен ✓";
-  errEl.style.color = "var(--primary)";
-  setTimeout(() => {
-    errEl.textContent = "";
-    errEl.style.color = "";
-  }, 3000);
+  if (errEl) {
+    errEl.textContent = editingID ? "Сотрудник обновлён ✓" : "Сотрудник добавлен ✓";
+    errEl.style.color = "var(--primary)";
+    setTimeout(() => {
+      errEl.textContent = "";
+      errEl.style.color = "";
+    }, 3000);
+  }
 }
 
 function deleteStaff(id) {
@@ -224,34 +265,47 @@ function loadStoreSettings() {
     city: "",
   });
 
-  document.getElementById("store_name").value = store.name || "";
-  document.getElementById("store_email").value = store.email || "";
-  document.getElementById("store_phone").value = store.phone || "";
-  document.getElementById("store_city").value = store.city || "";
+  const nameEl = document.getElementById("store_name");
+  const emailEl = document.getElementById("store_email");
+  const phoneEl = document.getElementById("store_phone");
+  const cityEl = document.getElementById("store_city");
+
+  if (nameEl) nameEl.value = store.name || "";
+  if (emailEl) emailEl.value = store.email || "";
+  if (phoneEl) phoneEl.value = store.phone || "";
+  if (cityEl) cityEl.value = store.city || "";
 }
 
 function saveStoreSettings() {
+  const nameEl = document.getElementById("store_name");
+  const emailEl = document.getElementById("store_email");
+  const phoneEl = document.getElementById("store_phone");
+  const cityEl = document.getElementById("store_city");
+
   const store = {
-    name: document.getElementById("store_name").value.trim(),
-    email: document.getElementById("store_email").value.trim(),
-    phone: document.getElementById("store_phone").value.trim(),
-    city: document.getElementById("store_city").value.trim(),
+    name: nameEl ? nameEl.value.trim() : "",
+    email: emailEl ? emailEl.value.trim() : "",
+    phone: phoneEl ? phoneEl.value.trim() : "",
+    city: cityEl ? cityEl.value.trim() : "",
   };
 
   if (!store.name) {
-    document.getElementById("store_msg").textContent = "Укажи название магазина.";
+    const msgEl = document.getElementById("store_msg");
+    if (msgEl) msgEl.textContent = "Укажи название магазина.";
     return;
   }
 
   saveToStorage(STORAGE_KEY_STORE, store);
 
   const msgEl = document.getElementById("store_msg");
-  msgEl.textContent = "Изменения сохранены ✓";
-  msgEl.style.color = "var(--primary)";
-  setTimeout(() => {
-    msgEl.textContent = "";
-    msgEl.style.color = "";
-  }, 3000);
+  if (msgEl) {
+    msgEl.textContent = "Изменения сохранены ✓";
+    msgEl.style.color = "var(--primary)";
+    setTimeout(() => {
+      msgEl.textContent = "";
+      msgEl.style.color = "";
+    }, 3000);
+  }
 }
 
 // ===== XSS Protection =====
@@ -275,18 +329,26 @@ function init() {
   initTabs();
 
   // Staff Management
-  document.getElementById("staff_add_btn").addEventListener("click", openAddModal);
-  document.getElementById("modal_close").addEventListener("click", closeModal);
-  document.getElementById("modal_cancel").addEventListener("click", closeModal);
-  document.getElementById("modal_submit").addEventListener("click", addOrUpdateStaff);
+  const staffAddBtn = document.getElementById("staff_add_btn");
+  const modalClose = document.getElementById("modal_close");
+  const modalCancel = document.getElementById("modal_cancel");
+  const modalSubmit = document.getElementById("modal_submit");
+  const staffModal = document.getElementById("staff_modal");
+  const storeSave = document.getElementById("store_save");
 
-  // Close on overlay click
-  document.getElementById("staff_modal").addEventListener("click", (e) => {
-    if (e.target.id === "staff_modal") closeModal();
-  });
+  if (staffAddBtn) staffAddBtn.addEventListener("click", openAddModal);
+  if (modalClose) modalClose.addEventListener("click", closeModal);
+  if (modalCancel) modalCancel.addEventListener("click", closeModal);
+  if (modalSubmit) modalSubmit.addEventListener("click", addOrUpdateStaff);
+
+  if (staffModal) {
+    staffModal.addEventListener("click", (e) => {
+      if (e.target.id === "staff_modal") closeModal();
+    });
+  }
 
   // Store Settings
-  document.getElementById("store_save").addEventListener("click", saveStoreSettings);
+  if (storeSave) storeSave.addEventListener("click", saveStoreSettings);
 
   // Load store settings
   loadStoreSettings();
@@ -296,7 +358,6 @@ function init() {
 }
 
 // Boot
-document.addEventListener("DOMContentLoaded", init);
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
 } else {
