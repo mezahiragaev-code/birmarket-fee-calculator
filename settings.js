@@ -110,9 +110,13 @@ function renderStaffList() {
 }
 
 function openAddModal() {
+  console.log("✓ openAddModal called");
   editingID = null;
   const modal = document.getElementById("staff_modal");
-  if (!modal) return;
+  if (!modal) {
+    console.error("❌ Modal element not found!");
+    return;
+  }
   
   const title = document.getElementById("modal_title");
   const name = document.getElementById("modal_name");
@@ -131,6 +135,7 @@ function openAddModal() {
   if (submit) submit.textContent = "Добавить";
   
   modal.style.display = "flex";
+  console.log("✓ Modal opened, display:", modal.style.display);
 }
 
 function openEditModal(id) {
@@ -161,8 +166,12 @@ function openEditModal(id) {
 }
 
 function closeModal() {
+  console.log("closeModal called");
   const modal = document.getElementById("staff_modal");
-  if (modal) modal.style.display = "none";
+  if (modal) {
+    modal.style.display = "none";
+    console.log("Modal hidden");
+  }
   editingID = null;
 }
 
@@ -322,8 +331,11 @@ function escapeHtml(text) {
 
 // ===== Init =====
 function init() {
+  console.log("🚀 Settings page initialized");
+  
   // Load data
   staffList = loadFromStorage(STORAGE_KEY_STAFF, []);
+  console.log("Loaded staff list:", staffList);
 
   // Tabs
   initTabs();
@@ -336,7 +348,16 @@ function init() {
   const staffModal = document.getElementById("staff_modal");
   const storeSave = document.getElementById("store_save");
 
-  if (staffAddBtn) staffAddBtn.addEventListener("click", openAddModal);
+  if (staffAddBtn) {
+    staffAddBtn.addEventListener("click", function(e) {
+      console.log("📌 Button click detected");
+      openAddModal();
+    });
+    console.log("✓ Attached click handler to staff_add_btn");
+  } else {
+    console.error("❌ staff_add_btn element not found in DOM");
+  }
+  
   if (modalClose) modalClose.addEventListener("click", closeModal);
   if (modalCancel) modalCancel.addEventListener("click", closeModal);
   if (modalSubmit) modalSubmit.addEventListener("click", addOrUpdateStaff);
@@ -358,8 +379,13 @@ function init() {
 }
 
 // Boot
+console.log("📄 settings.js loaded, document.readyState:", document.readyState);
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", function() {
+    console.log("🔄 DOMContentLoaded event fired");
+    init();
+  });
 } else {
+  console.log("✓ Document already ready, calling init directly");
   init();
 }

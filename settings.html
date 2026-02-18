@@ -105,7 +105,7 @@
                 Добавь сотрудников в свой магазин и управляй их доступом
               </div>
             </div>
-            <button id="staff_add_btn" class="btn btn--primary">+ Добавить сотрудника</button>
+            <button id="staff_add_btn" class="btn btn--primary" type="button">+ Добавить сотрудника</button>
           </div>
 
           <div id="staff_err" class="error" role="alert"></div>
@@ -170,7 +170,7 @@
           </div>
 
           <div class="actions">
-            <button id="store_save" class="btn btn--primary">Сохранить изменения</button>
+            <button id="store_save" class="btn btn--primary" type="button">Сохранить изменения</button>
             <div id="store_msg" class="error" role="alert"></div>
           </div>
         </section>
@@ -179,12 +179,12 @@
   </div>
 
   <!-- ===== MODAL: Add/Edit Staff ===== -->
-  <div id="staff_modal" class="modal" style="display:none;">
+  <div id="staff_modal" class="modal">
     <div class="modal__overlay"></div>
     <div class="modal__content">
       <div class="modal__header">
         <div class="modal__title" id="modal_title">Добавить сотрудника</div>
-        <button id="modal_close" class="modal__close" aria-label="Close">✕</button>
+        <button id="modal_close" class="modal__close" type="button" aria-label="Close">✕</button>
       </div>
 
       <div class="modal__body">
@@ -223,8 +223,8 @@
       </div>
 
       <div class="modal__footer">
-        <button id="modal_cancel" class="btn btn--ghost">Отменить</button>
-        <button id="modal_submit" class="btn btn--primary">Добавить</button>
+        <button id="modal_cancel" class="btn btn--ghost" type="button">Отменить</button>
+        <button id="modal_submit" class="btn btn--primary" type="button">Добавить</button>
       </div>
     </div>
   </div>
